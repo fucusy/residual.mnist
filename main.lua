@@ -1,5 +1,4 @@
 require 'nn';
-require 'cunn';
 
 local cmd = torch.CmdLine()
 cmd:text()
@@ -33,11 +32,11 @@ local N = (opt.layers-10)/6
 
 local mnist = require 'mnist'
 local train = mnist.traindataset()
-local Xt = train.data
-local Yt = train.label
+local Xt = train.data:double()
+local Yt = train.label:double()
 local test = mnist.testdataset()
-local Xv = test.data
-local Yv = test.label
+local Xv = test.data:double()
+local Yv = test.label:double()
 Yt[Yt:eq(0)] = 10
 Yv[Yv:eq(0)] = 10
 local train = require 'train'
@@ -52,5 +51,3 @@ local sgd_config = {
    }
 print('Number of convolutional layers .. '..#net:findModules('nn.SpatialConvolution'))
 train.sgd(net,ct,Xt,Yt,Xv,Yv,opt.iterations,sgd_config,opt.batchSize)
-
-

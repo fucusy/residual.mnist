@@ -15,8 +15,8 @@ function train.sgd(net,ct,Xt,Yt,Xv,Yv,K,sgd_config,batch)
             xlua.progress(i/batch, Nt/batch)
             dx:zero()
             local j = math.min(i+batch-1,Nt)
-            local Xb = Xt[{{i,j}}]:cuda()
-            local Yb = Yt[{{i,j}}]:cuda()
+            local Xb = Xt[{{i,j}}]
+            local Yb = Yt[{{i,j}}]
             local out = net:forward(Xb)
             local loss = ct:forward(out,Yb)
             local dout = ct:backward(out,Yb)
@@ -44,8 +44,8 @@ function train.accuracy(Xv,Yv,net,batch)
     for i =1,Nv,batch do
         xlua.progress(i/batch, Nv/batch)
         local j = math.min(i+batch-1,Nv)
-        local Xb = Xv[{{i,j}}]:cuda()
-        local Yb = Yv[{{i,j}}]:cuda()
+        local Xb = Xv[{{i,j}}]
+        local Yb = Yv[{{i,j}}]
         local out = net:forward(Xb)
         local tmp,YYb = out:max(2)
         lloss = lloss + YYb:eq(Yb):sum()

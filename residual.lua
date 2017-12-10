@@ -1,5 +1,4 @@
 require 'nn'
-require 'cunn'
 
 local function convunit(net,fin,fout,fsize,str,pad,nobatch)
     local nobatch = nobatch or false

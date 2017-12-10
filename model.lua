@@ -26,10 +26,6 @@ function model.residual(N)
     net:add(cls)
     local ct = nn.ClassNLLCriterion()
 
-    require 'cunn';
-    net = net:cuda()
-    ct = ct:cuda()
-
     return net,ct
 end
 return model
